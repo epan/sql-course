@@ -82,3 +82,22 @@ GROUP BY
 ORDER BY
   Revenue desc
 ;
+
+# What customer has paid us the most money?
+SELECT
+  payment.customer_id as "Customer ID", SUM(payment.amount) as "Total Revenue"
+FROM
+  payment
+GROUP BY
+  1
+ORDER BY
+  2 desc
+;
+
+# Revenue by store
+SELECT
+FROM
+WHERE
+GROUP BY
+ORDER BY
+;
