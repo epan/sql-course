@@ -66,3 +66,19 @@ WHERE
 GROUP BY
   film.title
 ;
+
+# Revenue per video title
+-- Revenue = price * number of rentals
+SELECT
+  film.title as Title, count(rental.rental_id) as "Number of Rentals", film.rental_rate as "Rental Price", count(rental.rental_id) * film.rental_rate as Revenue
+FROM
+  film, inventory, rental
+WHERE
+  film.film_id = inventory.film_id
+  and
+  rental.inventory_id = inventory.inventory_id
+GROUP BY
+  film.title
+ORDER BY
+  Revenue desc
+;
