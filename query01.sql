@@ -94,10 +94,37 @@ ORDER BY
   2 desc
 ;
 
-# Revenue by store
+# Revenue by store try 1
 SELECT
+  store.store_id as Store, SUM(payment.amount) as Revenue
 FROM
+  inventory, rental, payment, film, store
 WHERE
+  inventory.inventory_id = rental.inventory_id
+  and
+  rental.rental_id = payment.rental_id
+  and
+  inventory.film_id = film.film_id
+  and
+  inventory.store_id = store.store_id
 GROUP BY
+  store.store_id
 ORDER BY
+  2 desc
+;
+
+# Revenue by store try 2
+-- 67416.51 Total
+SELECT
+  inventory.store_id as "Store ID", SUM(payment.amount) as "Revenue"
+FROM
+  inventory, payment, rental
+WHERE
+  payment.rental_id = rental.rental_id
+  and
+  inventory.inventory_id = rental.inventory_id
+GROUP BY
+  inventory.store_id
+ORDER BY
+  2 desc
 ;
