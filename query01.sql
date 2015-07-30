@@ -128,3 +128,38 @@ GROUP BY
 ORDER BY
   2 desc
 ;
+
+-- Brainbuster
+-- 1. Every customer's last rental date
+-- 2. Revenue by month
+SELECT
+  customer.first_name, customer.last_name, max(rental.rental_date)
+FROM
+  rental, customer
+WHERE
+  rental.customer_id = customer.customer_id
+GROUP BY
+  customer.customer_id
+;
+
+SELECT
+  left(payment.payment_date, 7) as "Month", sum(payment.amount) as "Total Revenue"
+FROM
+  payment
+GROUP BY
+  1
+;
+
+-- Brainbuster
+-- Unique movies rented per month
+SELECT
+  left(rental.rental_date, 7) as "Month", count(distinct inventory.film_id) as "Distinct films"
+FROM
+  rental, inventory
+WHERE
+  rental.inventory_id = inventory.inventory_id
+GROUP BY
+  1
+ORDER BY
+  1
+;
