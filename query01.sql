@@ -163,3 +163,19 @@ GROUP BY
 ORDER BY
   1
 ;
+
+-- Brainbuster
+-- How much revenue has store 1 from films PG-13 or R.
+
+SELECT
+  inventory.store_id as store, film.rating as rating, sum(payment.amount) as payment
+FROM
+  payment, film, rental, inventory
+WHERE
+  inventory.inventory_id = rental.inventory_id
+  and payment.rental_id = rental.rental_id
+  and inventory.film_id = film.film_id
+  and film.rating IN("PG-13", "R")
+  and inventory.store_id = 1
+GROUP BY 1, 2
+;
