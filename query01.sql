@@ -179,3 +179,21 @@ WHERE
   and inventory.store_id = 1
 GROUP BY 1, 2
 ;
+
+# Brainbuster
+-- Revenue by Actor, actor's name, amount of revenue they produced.
+
+SELECT
+  actor.actor_id, actor.first_name, actor.last_name, sum(payment.amount)
+FROM
+  payment, rental, inventory, film_actor, actor
+WHERE
+  payment.rental_id = rental.rental_id
+  and rental.inventory_id = inventory.inventory_id
+  and inventory.film_id = film_actor.film_id
+  and film_actor.actor_id = actor.actor_id
+GROUP BY
+  1
+ORDER BY
+  4 desc
+;
